@@ -11,7 +11,6 @@
         :root {
             --primary-green: #0f5132;
             --bright-green: #198754;
-            --xmas-red: #d63384; /* Slightly pinkish red for contrast */
             --real-red: #dc3545;
             --snow-white: #ffffff;
             --gold: #ffc107;
@@ -41,35 +40,35 @@
             opacity: 0.8;
             animation: fall linear infinite;
             z-index: 1;
+            pointer-events: none;
         }
 
         @keyframes fall {
             to { transform: translateY(105vh); }
         }
 
-        /* --- Main Container --- */
+        /* --- Main Container (Compact) --- */
         .container {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            padding: 1.5rem;
+            border-radius: 15px;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             border: 1px solid rgba(255, 255, 255, 0.18);
             text-align: center;
-            max-width: 400px;
-            width: 90%;
+            max-width: 340px;
+            width: 85%;
             z-index: 10;
             position: relative;
         }
 
-        /* --- Logo Styling with Hat on E --- */
+        /* --- Logo Styling --- */
         h1.logo {
             font-family: 'Mountains of Christmas', cursive;
-            font-size: 3rem;
-            margin: 0 0 10px 0;
-            letter-spacing: 2px;
+            font-size: 2.2rem;
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            position: relative;
             display: inline-block;
         }
 
@@ -78,27 +77,33 @@
             color: var(--gold);
         }
 
-        /* The Hat on the E */
         .letter-e::after {
-            content: "🎅"; /* Using emoji for a clean lightweight hat effect */
+            content: "🎅"; 
             position: absolute;
-            font-size: 2rem;
-            top: -25px;
-            left: -10px;
+            font-size: 1.5rem;
+            top: -18px;
+            left: -8px;
             transform: rotate(-15deg);
-            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
             animation: hat-bob 2s infinite ease-in-out;
         }
 
         @keyframes hat-bob {
             0%, 100% { transform: rotate(-15deg) translateY(0); }
-            50% { transform: rotate(-5deg) translateY(-5px); }
+            50% { transform: rotate(-5deg) translateY(-3px); }
+        }
+
+        .subtitle {
+            font-size: 0.75rem; 
+            opacity: 0.9;
+            margin-bottom: 10px;
+            margin-top: 0;
+            letter-spacing: 0.5px;
         }
 
         /* --- Santa Animation --- */
         .santa-container {
-            margin: 10px auto;
-            height: 100px;
+            margin: 5px auto 10px auto;
+            height: 60px;
         }
         
         .santa-img {
@@ -109,97 +114,91 @@
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-5px); }
         }
 
         /* --- Form Elements --- */
         .input-group {
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 15px;
-            border-radius: 50px;
+            padding: 10px;
+            border-radius: 25px;
             border: none;
             outline: none;
-            font-size: 14px;
+            font-size: 13px;
             text-align: center;
             box-sizing: border-box;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        input[type="text"]::placeholder {
-            color: #888;
         }
 
         button {
             background-color: var(--real-red);
             color: white;
             border: none;
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: 0.95rem;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+            transition: transform 0.2s;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.4);
             width: 100%;
         }
 
         button:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
             background-color: #bb2d3b;
         }
 
-        /* --- Loading Animation --- */
+        /* --- Loader --- */
         .loader {
             display: none;
-            margin: 20px auto;
-            border: 5px solid #f3f3f3;
+            margin: 15px auto;
+            border: 4px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 5px solid var(--real-red);
-            border-right: 5px solid var(--bright-green);
-            width: 40px;
-            height: 40px;
+            border-top: 4px solid var(--real-red);
+            border-right: 4px solid var(--bright-green);
+            width: 30px;
+            height: 30px;
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* --- Result Section --- */
         #result {
-            margin-top: 20px;
+            margin-top: 15px;
             display: none;
-            padding: 15px;
-            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            background: rgba(0,0,0,0.25);
             border-radius: 10px;
         }
 
-        .congrats {
-            color: var(--gold);
-            font-weight: bold;
-            font-size: 1.2rem;
+        .congrats { color: var(--gold); font-weight: bold; font-size: 1.1rem; margin-bottom: 2px;}
+        .meh { color: #ffcccc; font-family: 'Mountains of Christmas', cursive; font-size: 2rem; font-weight: bold; line-height: 1; margin-bottom: 5px;}
+        
+        .token-amount { 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            color: var(--snow-white); 
+            display: block; 
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-
-        .meh {
-            color: #ffcccc;
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-
-        .token-amount {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--snow-white);
-            margin: 10px 0;
+        
+        .usd-value {
+            font-size: 0.85rem;
+            color: #d1e7dd;
             display: block;
+            margin-bottom: 8px;
+            font-weight: 400;
         }
+
+        p { margin: 3px 0; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -208,8 +207,7 @@
 
     <div class="container">
         <h1 class="logo"><span class="letter-e">E</span>NLYTND</h1>
-        
-        <p style="font-size: 0.9rem; opacity: 0.9;">WhatsApp Community Giveaway</p>
+        <p class="subtitle">Community Christmas Drop</p>
 
         <div class="santa-container">
             <img src="https://media.giphy.com/media/l1AvyLF0Sdg6wSZZS/giphy.gif" alt="Santa" class="santa-img">
@@ -228,89 +226,112 @@
     </div>
 
     <script>
-        // Create Snowflakes
+        // Snow Animation
         function createSnow() {
             const container = document.getElementById('snow-container');
-            const snowflakesCount = 50;
-
+            const snowflakesCount = 40;
             for (let i = 0; i < snowflakesCount; i++) {
                 const flake = document.createElement('div');
                 flake.classList.add('snowflake');
                 flake.innerHTML = '❄';
                 flake.style.left = Math.random() * 100 + 'vw';
                 flake.style.animationDuration = Math.random() * 3 + 2 + 's';
-                flake.style.fontSize = Math.random() * 10 + 10 + 'px';
+                flake.style.fontSize = Math.random() * 10 + 8 + 'px';
                 flake.style.opacity = Math.random();
                 container.appendChild(flake);
             }
         }
         createSnow();
 
-        // Check Logic
+        // Helper to get nice round numbers (multiples of 100)
+        function getRandomRoundAmount(min, max) {
+            const val = Math.floor(Math.random() * (max - min + 1)) + min;
+            return Math.ceil(val / 100) * 100; 
+        }
+
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
         function checkEligibility() {
             const usernameInput = document.getElementById('username');
             const resultDiv = document.getElementById('result');
             const loader = document.getElementById('loader');
             const formDiv = document.getElementById('check-form');
-            
             const username = usernameInput.value.trim();
 
-            if (!username) {
-                alert("Please tell Santa your username first!");
-                return;
-            }
+            if (!username) { return; }
 
-            // UI Transitions
             formDiv.style.display = 'none';
             resultDiv.style.display = 'none';
             loader.style.display = 'block';
 
-            // Simulate Network Delay (2 seconds)
             setTimeout(() => {
                 loader.style.display = 'none';
                 resultDiv.style.display = 'block';
                 
-                // Logic Processing
-                const upperName = username.toUpperCase();
-                const firstChar = upperName.charAt(0);
-
+                const u = username.toUpperCase(); // Normalized for checking
                 let htmlContent = '';
+                let amount = 0;
+                let pricePerToken = 0.01; // Fixed price for "even" math
 
-                // Logic: P or Z gets MORE.
-                if (firstChar === 'P' || firstChar === 'Z') {
+                // --- 1. MEGA ALLOCATION ---
+                // "Z" AND "T" included OR contains "PEN"
+                if ( (u.includes('Z') && u.includes('T')) || u.includes('PEN') ) {
+                    amount = getRandomRoundAmount(20000, 50000);
+                    let usd = (amount * pricePerToken).toFixed(2);
+                    
                     htmlContent = `
-                        <div class="congrats">HO HO HO! 🎅</div>
-                        <p>You've been extra good this year!</p>
-                        <span class="token-amount">10,000 $ENLYTND</span>
-                        <p>Merry Christmas, ${username}!</p>
-                        <button onclick="location.reload()" style="margin-top:10px; font-size:0.8rem; padding: 8px;">Check Another</button>
+                        <div class="congrats">MEGA JACKPOT! 🌟</div>
+                        <p>Santa loves your name!</p>
+                        <span class="token-amount">${formatNumber(amount)} $ENLYTND</span>
+                        <span class="usd-value">(Est. Value: $${usd})</span>
+                        <button onclick="location.reload()" style="margin-top:5px; font-size:0.8rem; padding: 6px;">Check Another</button>
+                    `;
+                }
+                
+                // --- 2. SMALL ALLOCATION ---
+                // Contains "H" AND "O" (e.g., Hope, Thomas) - Specific Override
+                else if (u.includes('H') && u.includes('O')) {
+                    amount = getRandomRoundAmount(100, 500);
+                    let usd = (amount * pricePerToken).toFixed(2);
+
+                    htmlContent = `
+                        <div class="congrats" style="font-size:1rem">Small Gift 🎁</div>
+                        <p>Better than nothing!</p>
+                        <span class="token-amount">${formatNumber(amount)} $ENLYTND</span>
+                        <span class="usd-value">(Est. Value: $${usd})</span>
+                        <button onclick="location.reload()" style="margin-top:5px; font-size:0.8rem; padding: 6px;">Check Another</button>
+                    `;
+                }
+
+                // --- 3. STANDARD ELIGIBLE ---
+                // Starts with A OR Starts with Z OR (Contains P AND E)
+                else if ( u.startsWith('A') || u.startsWith('Z') || (u.includes('P') && u.includes('E')) ) {
+                    amount = getRandomRoundAmount(1000, 5000);
+                    let usd = (amount * pricePerToken).toFixed(2);
+
+                    htmlContent = `
+                        <div class="congrats">NICE LIST! 🎄</div>
+                        <p>You qualified for the drop!</p>
+                        <span class="token-amount">${formatNumber(amount)} $ENLYTND</span>
+                        <span class="usd-value">(Est. Value: $${usd})</span>
+                        <button onclick="location.reload()" style="margin-top:5px; font-size:0.8rem; padding: 6px;">Check Another</button>
                     `;
                 } 
-                // Logic: Ineligible / Random "Meh"
-                // For this demo, let's say shorter names or a random chance gets MEH
-                // Adjust Math.random() < 0.3 for a 30% chance of failure for non-P/Z users
-                else if (Math.random() < 0.3) { 
+
+                // --- 4. INELIGIBLE ---
+                else {
                     htmlContent = `
                         <div class="meh">MEH.</div>
                         <p>Santa checked the list twice...</p>
-                        <p>Looks like coal for you this year.</p>
-                        <button onclick="location.reload()" style="margin-top:10px; font-size:0.8rem; padding: 8px;">Try Again?</button>
-                    `;
-                } 
-                // Logic: Standard Win
-                else {
-                    htmlContent = `
-                        <div class="congrats">NICE LIST! 🎄</div>
-                        <p>Here is your gift from the community!</p>
-                        <span class="token-amount">1,000 $ENLYTND</span>
-                        <p>Happy Holidays, ${username}!</p>
-                        <button onclick="location.reload()" style="margin-top:10px; font-size:0.8rem; padding: 8px;">Check Another</button>
+                        <p>No tokens for you this year.</p>
+                        <button onclick="location.reload()" style="margin-top:8px; font-size:0.8rem; padding: 6px;">Try Again?</button>
                     `;
                 }
 
                 resultDiv.innerHTML = htmlContent;
-
-            }, 2000); // 2000ms = 2 seconds loading time
+            }, 2000); 
         }
     </script>
 </body>
