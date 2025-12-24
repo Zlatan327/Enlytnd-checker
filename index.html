@@ -3,149 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enlytnd Holiday Drop</title>
+    <title>ENLYTND Christmas Giveaway</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
-
         :root {
-            --green: #00D045; 
-            --dark-green: #0a3d1b;
-            --red: #D42426;   
-            --gold: #FFD700;
-            --bg: #020d06;           
+            --primary-green: #0f5132;
+            --bright-green: #198754;
+            --xmas-red: #d63384; /* Slightly pinkish red for contrast */
+            --real-red: #dc3545;
+            --snow-white: #ffffff;
+            --gold: #ffc107;
         }
 
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg);
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
+            background-color: var(--primary-green);
+            background-image: radial-gradient(circle at 50% 50%, #1a6b42 0%, #0f5132 100%);
+            color: var(--snow-white);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            color: white;
-            /* Festive ambient lights */
-            background-image: 
-                radial-gradient(circle at 15% 15%, rgba(212, 36, 38, 0.4) 0%, transparent 25%),
-                radial-gradient(circle at 85% 20%, rgba(255, 215, 0, 0.3) 0%, transparent 25%),
-                radial-gradient(circle at 50% 50%, rgba(0, 208, 69, 0.2) 0%, #020d06 100%);
+            overflow: hidden;
+            position: relative;
         }
 
-        /* --- Snow --- */
+        /* --- Snow Animation --- */
         .snowflake {
             position: absolute;
             top: -10px;
-            color: rgba(255, 255, 255, 0.8);
-            animation: fall linear forwards;
-            pointer-events: none;
+            color: white;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: fall linear infinite;
             z-index: 1;
         }
-        @keyframes fall { to { transform: translateY(105vh); } }
 
-        /* --- Main Card --- */
+        @keyframes fall {
+            to { transform: translateY(105vh); }
+        }
+
+        /* --- Main Container --- */
         .container {
-            background: rgba(10, 30, 15, 0.6);
-            backdrop-filter: blur(15px);
-            padding: 2.5rem 2rem;
-            border-radius: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             text-align: center;
+            max-width: 400px;
             width: 90%;
-            max-width: 500px;
-            position: relative;
             z-index: 10;
+            position: relative;
         }
 
-        /* --- Logo --- */
-        .logo {
-            max-width: 70%;
-            height: auto;
-            margin: 0 auto 30px auto;
-            display: block;
-            filter: drop-shadow(0 0 10px rgba(0, 208, 69, 0.3));
+        /* --- Logo Styling with Hat on E --- */
+        h1.logo {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 3rem;
+            margin: 0 0 10px 0;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            display: inline-block;
         }
 
-        /* --- Tabs --- */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 25px;
+        .letter-e {
+            position: relative;
+            color: var(--gold);
         }
-        .tab-btn {
-            background: rgba(255,255,255,0.1);
+
+        /* The Hat on the E */
+        .letter-e::after {
+            content: "🎅"; /* Using emoji for a clean lightweight hat effect */
+            position: absolute;
+            font-size: 2rem;
+            top: -25px;
+            left: -10px;
+            transform: rotate(-15deg);
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
+            animation: hat-bob 2s infinite ease-in-out;
+        }
+
+        @keyframes hat-bob {
+            0%, 100% { transform: rotate(-15deg) translateY(0); }
+            50% { transform: rotate(-5deg) translateY(-5px); }
+        }
+
+        /* --- Santa Animation --- */
+        .santa-container {
+            margin: 10px auto;
+            height: 100px;
+        }
+        
+        .santa-img {
+            height: 100%;
+            animation: bounce 2s infinite;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* --- Form Elements --- */
+        .input-group {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border-radius: 50px;
             border: none;
-            color: #aaa;
-            padding: 12px 25px;
-            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            text-align: center;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        input[type="text"]::placeholder {
+            color: #888;
+        }
+
+        button {
+            background-color: var(--real-red);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            transition: 0.3s;
-        }
-        .tab-btn.active {
-            background: var(--green);
-            color: #003311;
-            box-shadow: 0 0 15px rgba(0, 208, 69, 0.4);
-        }
-
-        /* --- Inputs --- */
-        .input-group { display: none; animation: fadeIn 0.5s; }
-        .input-group.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        input {
-            width: 85%;
-            padding: 15px;
-            border-radius: 15px;
-            border: 2px solid rgba(255,255,255,0.1);
-            background: rgba(0,0,0,0.3);
-            color: white;
-            font-size: 1.1rem;
-            text-align: center;
-            margin-bottom: 20px;
-            outline: none;
-            font-family: 'Poppins', sans-serif;
-            transition: 0.3s;
-        }
-        input:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-        }
-
-        button.check-btn {
-            background: linear-gradient(135deg, var(--red), #a01010);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: bold;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
             width: 100%;
         }
-        button.check-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--red); }
-        button:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
-        /* --- Score Dashboard --- */
-        .dashboard {
-            margin-top: 35px;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
+        button:hover {
+            transform: scale(1.05);
+            background-color: #bb2d3b;
         }
-        .score-box { font-size: 0.8rem; color: #aaa; }
-        .score-val { display: block; font-size: 1.2rem; color: white; font-weight: bold; }
+
+        /* --- Loading Animation --- */
+        .loader {
+            display: none;
+            margin: 20px auto;
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid var(--real-red);
+            border-right: 5px solid var(--bright-green);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- Result Section --- */
+        #result {
+            margin-top: 20px;
+            display: none;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+
+        .congrats {
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .meh {
+            color: #ffcccc;
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .token-amount {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--snow-white);
+            margin: 10px 0;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="snow-container"></div>
+
+    <div class="container">
+        <h1 class="logo"><span class="letter-e">E</span>NLYTND</h1>
         
-        .total-box {
-            background: linear-gradient(135deg, var(--gold), #ff8c00);
-            padding: 12px 25px;
+        <p style="font-size: 0.9rem; opacity: 0.9;">WhatsApp Community Giveaway</p>
+
+        <div class="santa-container">
+            <img src="https://media.giphy.com/media/l1AvyLF0Sdg6wSZZS/giphy.gif" alt="Santa" class="santa-img">
+        </div>
+
+        <div id="check-form">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Check if you got something from Santa" autocomplete="off">
+                <button onclick="checkEligibility()">Check My Gift</button>
+            </div>
+        </div>
+
+        <div class="loader" id="loader"></div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Create Snowflakes
+        function createSnow() {
+            const container = document.getElementById('snow-container');
+            const snowflakesCount = 50;
+
+            for (let i = 0; i < snowflakesCount; i++) {
+                const flake = document.createElement('div');
+                flake.classList.add('snowflake');
+                flake.innerHTML = '❄';
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                flake.style.fontSize = Math.random() * 10 + 10 + 'px';
+                flake.style.opacity = Math.random();
+                container.appendChild(flake);
+            }
+        }
+        createSnow();
+
+        // Check Logic
+        function checkEligibility() {
+            const usernameInput = document.getElementById('username');
+            const resultDiv = document.getElementById('result');
+            const loader = document.getElementById('loader');
+            const formDiv = document.getElementById('check-form');
             
+            const username = usernameInput.value.trim();
+
+            if (!username) {
+                alert("Please tell Santa your username first!");
+                return;
+            }
+
+            // UI Transitions
+            formDiv.style.display = 'none';
+            resultDiv.style.display = 'none';
+            loader.style.display = 'block';
+
+            // Simulate Network Delay (2 seconds)
+            setTimeout(() => {
+                loader.style.display = 'none';
+                resultDiv.style.display = 'block';
+                
+                // Logic Processing
+                const upperName = username.toUpperCase();
+                const firstChar = upperName.charAt(0);
+
+                let htmlContent = '';
+
+                // Logic: P or Z gets MORE.
+                if (firstChar === 'P' || firstChar === 'Z') {
+                    htmlContent = `
+                        <div class="congrats">HO HO HO! 🎅</div>
+                        <p>You've been extra good this year!</p>
+                        <span class="token-amount">10,000 $ENLYTND</span>
+                        <p>Merry Christmas, ${username}!</p>
+                        <button onclick="location.reload()" style="margin-top:10px; font-size:0.8rem; padding: 8px;">Check Another</button>
+                    `;
+                } 
+                // Logic: Ineligible / Random "Meh"
+                // For this demo, let's say shorter names or a random chance gets MEH
+                // Adjust Math.random() < 0.3 for a 30% chance of failure for non-P/Z users
+                else if (Math.random() < 0.3) { 
+                    htmlContent = `
+                        <div class="meh">MEH.</div>
+                        <p>Santa checked the list twice...</p>
+                        <p>Looks like coal for you this year.</p>
+                        <button onclick="location.reload()" style="margin-top:10px; font-size:0.8rem; padding: 8px;">Try Again?</button>
+                    `;
+                } 
+                // Logic: Standard Win
+                else {
+                    htmlContent = `
+                        <div class="congrats">NICE LIST! 🎄</div>
+                        <p>Here is your gift from the community!</p>
+                        <span class="token-amount">1,000 $ENLYTND</span>
+                        <p>Happy Holidays, ${username}!</p>
+                        <button onclick="location.reload()" style="margin-top:10px; font-size:0.8rem; padding: 8px;">Check Another</button>
+                    `;
+                }
+
+                resultDiv.innerHTML = htmlContent;
+
+            }, 2000); // 2000ms = 2 seconds loading time
+        }
+    </script>
+</body>
+</html>
