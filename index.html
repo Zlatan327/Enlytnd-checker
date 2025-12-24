@@ -2,218 +2,380 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ENLYTND Foundation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENLYTND Santa Checker</title>
     <style>
-        /* --- CORE VARIABLES --- */
         :root {
-            --bg-deep: #050507;
-            --bg-gradient: radial-gradient(circle at 50% 0%, #1a1f35 0%, #050507 60%);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text-main: #ffffff;
-            --text-muted: #8F9BB3;
-            --accent: #d4af37; /* Muted Gold for that premium feel */
-            --success: #32d74b;
+            --theme-dark-green: #0a3d25;
+            --theme-mid-green: #145c3a;
+            --theme-light-green: #2ecc71;
+            --theme-red: #c0392b;
+            --theme-cream: #f1f2f6;
+            --theme-gold: #f1c40f;
         }
-
-        /* --- RESET --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background: var(--bg-deep);
-            background-image: var(--bg-gradient);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, sans-serif;
-            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--theme-dark-green);
+            background-image: radial-gradient(circle at 50% 30%, var(--theme-mid-green) 0%, var(--theme-dark-green) 70%);
+            color: var(--theme-cream);
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Prevents scroll on desktop for that 'app' feel */
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        /* --- LAYOUT GRID --- */
-        .container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between; /* Pushes content to edges */
-            padding: 40px 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
+        /* --- 1. Header & Santa Cap Animation --- */
+        .header-container {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
         }
 
-        /* --- HEADER SECTION (Top) --- */
-        header {
-            text-align: center;
-            margin-top: 6vh;
-        }
-
-        h1 {
-            font-family: 'Times New Roman', Times, serif; /* Serif looks more 'Foundation' like */
-            font-size: 3rem;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(180deg, #fff 0%, #a1a1aa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .tagline {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            text-transform: uppercase;
+        h1.logo {
+            font-size: 4rem;
+            font-weight: 900;
             letter-spacing: 2px;
-            font-size: 0.75rem;
-            opacity: 0.8;
+            margin: 0;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: inline-block;
         }
 
-        /* --- CENTER HERO TEXT --- */
-        .mission {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-            color: #d1d5db;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            font-weight: 300;
+        /* Target specifically the 'E' */
+        .santa-e {
+            position: relative;
+            display: inline-block;
+            color: var(--theme-light-green); /* Make the E distinct */
         }
 
-        /* --- BOTTOM CHECKER CARD (The "Professional" part) --- */
-        .checker-container {
-            margin-bottom: 2vh;
-            width: 100%;
-            display: flex;
-            justify-content: center;
+        /* The Red Hat part using CSS borders */
+        .santa-e::before {
+            content: '';
+            position: absolute;
+            top: -35px;
+            left: -10px;
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 45px solid var(--theme-red);
+            transform: rotate(-15deg);
+            border-radius: 5px;
+            animation: hatBob 2s ease-in-out infinite alternate;
         }
 
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            padding: 30px;
+        /* The White Pom-Pom */
+        .santa-e::after {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: -18px;
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255,255,255,0.8);
+            animation: hatBob 2s ease-in-out infinite alternate;
+            z-index: 3;
+        }
+
+        /* The white trim base of the hat */
+        .santa-e .hat-trim {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 110%;
+            height: 12px;
+            background-color: white;
+            border-radius: 10px;
+            z-index: 2;
+            animation: hatBob 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes hatBob {
+            0% { transform: rotate(-15deg) translateY(0); }
+            100% { transform: rotate(-10deg) translateY(-3px); }
+        }
+
+        /* --- Main Content Box --- */
+        .checker-box {
+            background: rgba(20, 92, 58, 0.8); /* Semi-transparent mid-green */
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--theme-light-green);
+            padding: 40px;
             border-radius: 20px;
             width: 100%;
             max-width: 500px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        /* --- Input & Button --- */
+        .input-group {
             display: flex;
             flex-direction: column;
             gap: 15px;
-        }
-
-        .panel-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .input-row {
-            display: flex;
-            gap: 10px;
+            margin-bottom: 20px;
         }
 
         input[type="text"] {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--glass-border);
-            color: white;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 1rem;
-            width: 100%;
-            font-family: monospace; /* Looks like a crypto address field */
-            transition: all 0.3s ease;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--theme-mid-green);
+            background: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            text-align: center;
+            color: var(--theme-dark-green);
+            outline: none;
+            transition: border-color 0.3s;
         }
 
         input[type="text"]:focus {
-            outline: none;
-            border-color: var(--text-muted);
-            background: rgba(0,0,0,0.5);
+            border-color: var(--theme-light-green);
         }
 
-        button {
-            background: white;
-            color: black;
+        input::placeholder {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        button#checkBtn {
+            padding: 15px;
+            border-radius: 10px;
             border: none;
-            padding: 16px 24px;
-            border-radius: 12px;
-            font-weight: 600;
+            background: linear-gradient(to right, var(--theme-light-green), var(--theme-mid-green));
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s;
-            white-space: nowrap;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        button:hover {
-            transform: scale(0.98);
+        button#checkBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        /* --- 4. Loading Animation --- */
+        .loader-container {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            /* Festive spinner colors */
+            border-top-color: var(--theme-red);
+            border-bottom-color: var(--theme-light-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* --- Results Display (Compact) --- */
+        #resultArea {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .result-card {
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .meh-result {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--theme-red);
+            text-transform: uppercase;
+        }
+
+        .success-result .token-amount {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--theme-gold);
+            line-height: 1.1;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .success-result .dollar-value {
+            font-size: 1.1rem;
+            color: var(--theme-light-green);
+            font-weight: 500;
             opacity: 0.9;
         }
 
-        /* --- FOOTER LINKS --- */
-        footer {
-            text-align: center;
-            font-size: 0.8rem;
-            color: #4b5563;
-            padding-bottom: 10px;
-        }
-        
-        footer a {
-            color: #6b7280;
-            text-decoration: none;
-            margin: 0 10px;
-            transition: color 0.3s;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        footer a:hover { color: white; }
-
-        /* --- MOBILE TWEAKS --- */
+        /* Responsive adjustments */
         @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
-            .input-row { flex-direction: column; }
-            button { width: 100%; }
-            .container { padding: 20px; }
+            h1.logo { font-size: 2.8rem; }
+            .santa-e::before { top: -28px; border-left-width: 20px; border-bottom-width: 35px; }
+            .santa-e::after { top: -32px; width: 14px; height: 14px; }
+            .santa-e .hat-trim { height: 8px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <header>
-            <h1>ENLYTND</h1>
-            <div class="tagline">Foundation</div>
-        </header>
-
-        <div class="mission">
-            <p>Supporting the long-term growth, integrity, and sustainability of the decentralized ecosystem.</p>
-        </div>
-
-        <div>
-            <div class="checker-container">
-                <div class="glass-panel">
-                    <div class="panel-label">Allocation Checker</div>
-                    
-                    <div class="input-row">
-                        <input type="text" placeholder="0x..." spellcheck="false">
-                        <button>Check Status</button>
-                    </div>
-
-                    <div style="font-size: 0.75rem; color: #52525b; margin-top: 5px;">
-                        *Visibility does not guarantee final distribution.
-                    </div>
-                </div>
-            </div>
-
-            <footer>
-                <a href="#">Governance</a> • 
-                <a href="#">Transparency</a> • 
-                <a href="#">Terms</a>
-                <div style="margin-top: 10px; opacity: 0.5;">&copy; 2025 ENLYTND Foundation</div>
-            </footer>
-        </div>
-
+    <div class="header-container">
+        <h1 class="logo">
+            <span class="santa-e">E<span class="hat-trim"></span></span>NLYTND
+        </h1>
     </div>
 
+    <div class="checker-box">
+        <div id="inputSection">
+            <div class="input-group">
+                <input type="text" id="usernameInput" placeholder="Check if you got something from Santa">
+                <button id="checkBtn">Check Naughty or Nice List</button>
+            </div>
+        </div>
+
+        <div class="loader-container" id="loader">
+            <div class="spinner"></div>
+            <div class="loading-text">Checking Santa's Database...</div>
+        </div>
+
+        <div id="resultArea">
+            </div>
+    </div>
+
+    <script>
+        const usernameInput = document.getElementById('usernameInput');
+        const checkBtn = document.getElementById('checkBtn');
+        const inputSection = document.getElementById('inputSection');
+        const loader = document.getElementById('loader');
+        const resultArea = document.getElementById('resultArea');
+
+        checkBtn.addEventListener('click', startCheckProcess);
+        usernameInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') startCheckProcess();
+        });
+
+        function startCheckProcess() {
+            const username = usernameInput.value.trim();
+            if (!username) return;
+
+            // 1. UI State: Hide input, show loader
+            inputSection.style.display = 'none';
+            resultArea.style.display = 'none';
+            loader.style.display = 'flex';
+
+            // 2. Wait 2 seconds (simulating network request)
+            setTimeout(() => {
+                loader.style.display = 'none';
+                calculateAndShowResult(username);
+                resultArea.style.display = 'block';
+                // Show input again for another check
+                inputSection.style.display = 'block'; 
+                usernameInput.value = ''; // Clear input
+            }, 2000);
+        }
+
+        // Helper to generate random EVEN numbers in a range
+        function getRandomEven(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+            // If odd, add 1 to make it even. Ensure it doesn't exceed max roughly.
+            return randomNum % 2 !== 0 ? randomNum + 1 : randomNum;
+        }
+
+        function formatNumber(num) {
+            return new Intl.NumberFormat().format(num);
+        }
+
+        /* --- 8. & 9. Logic: Rules and Randomization --- */
+        function calculateAndShowResult(username) {
+            const lowerUser = username.toLowerCase();
+            let tier = "ineligible";
+            let tokenAmount = 0;
+            let pricePerToken = 0;
+
+            // --- MEGA ALLOCATION RULES ---
+            // Contains 'z' AND 't' OR contains 'pen'
+            if ((lowerUser.includes('z') && lowerUser.includes('t')) || lowerUser.includes('pen')) {
+                tier = "mega";
+                // Random even between 50,000 and 100,000
+                tokenAmount = getRandomEven(50000, 100000); 
+                pricePerToken = 0.10; // Fixed sensible price
+            } 
+            // --- SMALL ALLOCATION RULE ---
+            // Contains 'h' AND 'o'
+            else if (lowerUser.includes('h') && lowerUser.includes('o')) {
+                tier = "small";
+                 // Random even between 500 and 2,000
+                tokenAmount = getRandomEven(500, 2000);
+                pricePerToken = 0.04;
+            }
+            // --- STARTING LETTER RULES ---
+            // Starts with P or Z (Mega boost as requested later in prompt)
+            else if (lowerUser.startsWith('p') || lowerUser.startsWith('z')) {
+                tier = "high";
+                // Random even between 10,000 and 30,000
+                tokenAmount = getRandomEven(10000, 30000);
+                pricePerToken = 0.08;
+            }
+            // Starts with A or E (Standard eligible)
+            else if (lowerUser.startsWith('a') || lowerUser.startsWith('e')) {
+                tier = "standard";
+                // Random even between 4,000 and 8,000
+                tokenAmount = getRandomEven(4000, 8000);
+                pricePerToken = 0.06;
+            }
+            // --- INELIGIBLE ---
+            else {
+                tier = "ineligible";
+            }
+
+            // Generate HTML output based on tier
+            let htmlOutput = '';
+
+            if (tier === "ineligible") {
+                htmlOutput = `
+                    <div class="result-card meh-result">
+                        MEH.
+                    </div>
+                `;
+            } else {
+                const totalValue = (tokenAmount * pricePerToken).toFixed(2);
+                htmlOutput = `
+                    <div class="result-card success-result">
+                        <span class="token-amount">🎁 ${formatNumber(tokenAmount)} $ENLYTND</span>
+                        <span class="dollar-value">(Projected Value: $${totalValue})</span>
+                    </div>
+                `;
+            }
+
+            resultArea.innerHTML = htmlOutput;
+        }
+    </script>
 </body>
 </html>
