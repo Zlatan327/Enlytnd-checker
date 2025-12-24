@@ -1,241 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ENLYTND · Holiday Distribution</title>
-
-<style>
-:root {
-  --bg-top: #052e16;
-  --bg-bottom: #020617;
-  --green: #14532d;
-  --glass: rgba(255,255,255,0.06);
-}
-
-* {
-  box-sizing: border-box;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
-}
-
-/* ---------------- Snow ---------------- */
-.snow {
-  position: fixed;
-  top: -10px;
-  width: 3px;
-  height: 3px;
-  background: rgba(255,255,255,.7);
-  border-radius: 50%;
-  animation: fall linear infinite;
-  pointer-events: none;
-}
-
-@keyframes fall {
-  to { transform: translateY(110vh); }
-}
-
-/* ---------------- Header ---------------- */
-header {
-  margin-top: 64px;
-  text-align: center;
-  position: relative;
-}
-
-.logo-wrap {
-  position: relative;
-  display: inline-block;
-}
-
-.logo-text {
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: .08em;
-}
-
-/* Santa cap */
-.cap {
-  position: absolute;
-  top: -14px;
-  right: -28px;
-}
-
-/* ---------------- Santa drive ---------------- */
-.santa {
-  margin-top: 18px;
-  font-size: 13px;
-  opacity: .6;
-  animation: drive 20s linear infinite;
-}
-
-@keyframes drive {
-  from { transform: translateX(-120vw); }
-  to { transform: translateX(120vw); }
-}
-
-/* ---------------- Card ---------------- */
-.card {
-  margin-top: 42px;
-  width: 90%;
-  max-width: 420px;
-  background: var(--glass);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
-  padding: 28px;
-}
-
-input {
-  width: 100%;
-  padding: 14px;
-  background: rgba(0,0,0,.45);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 12px;
-  color: #fff;
-  font-size: 14px;
-}
-
-input::placeholder {
-  color: rgba(255,255,255,.55);
-}
-
-button {
-  width: 100%;
-  margin-top: 14px;
-  padding: 14px;
-  background: var(--green);
-  border: none;
-  border-radius: 12px;
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-button:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-}
-
-.loader {
-  margin-top: 18px;
-  text-align: center;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.result {
-  margin-top: 18px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 500;
-}
-
-/* ---------------- Footer ---------------- */
-footer {
-  margin: 40px 0 22px;
-  font-size: 11px;
-  opacity: .4;
-  text-align: center;
-  max-width: 260px;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ENLYTND Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<!-- Header -->
-<header>
-  <div class="logo-wrap">
-    <div class="logo-text">ENLYTND</div>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-inner">
 
-    <!-- SVG Santa cap -->
-    <svg class="cap" width="38" height="26" viewBox="0 0 38 26">
-      <path d="M2 18 C6 2, 30 2, 36 16" fill="#9f1d1d"/>
-      <rect x="5" y="16" width="26" height="6" rx="3" fill="#f5f5f5"/>
-      <circle cx="34" cy="18" r="4" fill="#f5f5f5"/>
-    </svg>
-  </div>
+        <h1 class="brand">
+          ENLYTND
+          <span class="santa-cap" aria-hidden="true"></span>
+        </h1>
 
-  <div style="margin-top:10px;font-size:11px;letter-spacing:.25em;opacity:.5;">
-    HOLIDAY DISTRIBUTION PREVIEW
-  </div>
-</header>
+        <p class="subtitle">
+          ENLYTND Foundation
+        </p>
 
-<div class="santa">🎅🏼</div>
+        <p class="description">
+          Supporting the long-term growth, integrity, and sustainability of the ENLYTND ecosystem.
+        </p>
 
-<!-- Checker -->
-<div class="card">
-  <input id="username" placeholder="Check if you got something from Santa" />
-  <button id="btn" onclick="check()">Check allocation</button>
+        <div class="card">
+          <input
+            type="text"
+            placeholder="Enter wallet address"
+            aria-label="Wallet address"
+          />
+          <button>Check allocation</button>
+        </div>
 
-  <div id="loader" class="loader" style="display:none;">❄️</div>
-  <div id="result" class="result"></div>
-</div>
+        <p class="disclaimer">
+          This page provides a preview of the seasonal distribution process.
+          Allocation visibility does not guarantee final distribution.
+        </p>
 
-<footer>
-  ENLYTND Foundation · Seasonal distribution preview
-</footer>
+      </div>
+    </section>
 
-<script>
-/* Snow generator */
-for (let i = 0; i < 26; i++) {
-  const s = document.createElement('div');
-  s.className = 'snow';
-  s.style.left = Math.random() * 100 + 'vw';
-  s.style.animationDuration = (12 + Math.random() * 8) + 's';
-  s.style.opacity = Math.random();
-  document.body.appendChild(s);
-}
-
-function rand(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function check() {
-  const input = document.getElementById('username');
-  const btn = document.getElementById('btn');
-  const loader = document.getElementById('loader');
-  const result = document.getElementById('result');
-
-  const u = input.value.trim().toUpperCase();
-  if (!u) return;
-
-  btn.disabled = true;
-  loader.style.display = 'block';
-  result.innerHTML = '';
-
-  setTimeout(() => {
-    let res = 'MEH';
-
-    if (u.startsWith('PEN') || u.startsWith('ZT')) {
-      res = `${rand(9000,12000)} ENLYTND ($${rand(90,120)}) · Priority`;
-    } else if (u.startsWith('P') || u.startsWith('Z')) {
-      res = `${rand(4000,7000)} ENLYTND ($${rand(40,70)})`;
-    } else if (u.startsWith('A') || u.startsWith('E')) {
-      res = `${rand(2000,3500)} ENLYTND ($${rand(20,35)})`;
-    } else if (u.startsWith('H') || u.startsWith('O')) {
-      res = `${rand(600,1200)} ENLYTND ($${rand(6,12)})`;
-    }
-
-    loader.style.display = 'none';
-    result.innerHTML = res;
-    btn.disabled = false;
-  }, 1500);
-}
-</script>
+    <footer class="footer">
+      <p>© 2025 ENLYTND Foundation</p>
+      <p>Governance · Transparency · Sustainability</p>
+    </footer>
+  </main>
 
 </body>
 </html>
