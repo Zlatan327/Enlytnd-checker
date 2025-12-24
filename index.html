@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enlytnd Holiday Drop</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
         :root {
             --green: #00D045; 
@@ -48,7 +48,7 @@
         .container {
             background: rgba(10, 30, 15, 0.6);
             backdrop-filter: blur(15px);
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             border-radius: 25px;
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
@@ -59,24 +59,13 @@
             z-index: 10;
         }
 
-        h1 {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 3rem;
-            margin: 0 0 5px 0;
-            color: var(--green);
-            text-shadow: 0 0 15px var(--green);
-        }
-        .santa-letter { position: relative; display: inline-block; }
-        .santa-letter::before {
-            content: ''; position: absolute; top: -25px; left: -12px;
-            width: 0; height: 0;
-            border-left: 15px solid transparent; border-right: 15px solid transparent;
-            border-bottom: 35px solid var(--red); transform: rotate(-25deg);
-        }
-        .santa-letter::after {
-            content: ''; position: absolute; top: -28px; left: -20px;
-            width: 12px; height: 12px; background: white; border-radius: 50%;
-            box-shadow: 0 0 5px white;
+        /* --- Logo --- */
+        .logo {
+            max-width: 70%;
+            height: auto;
+            margin: 0 auto 30px auto;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(0, 208, 69, 0.3));
         }
 
         /* --- Tabs --- */
@@ -84,16 +73,17 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin: 20px 0;
+            margin-bottom: 25px;
         }
         .tab-btn {
             background: rgba(255,255,255,0.1);
             border: none;
             color: #aaa;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
+            font-family: 'Poppins', sans-serif;
             transition: 0.3s;
         }
         .tab-btn.active {
@@ -118,6 +108,7 @@
             text-align: center;
             margin-bottom: 20px;
             outline: none;
+            font-family: 'Poppins', sans-serif;
             transition: 0.3s;
         }
         input:focus {
@@ -133,6 +124,7 @@
             border-radius: 50px;
             font-size: 1rem;
             font-weight: bold;
+            font-family: 'Poppins', sans-serif;
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -143,8 +135,8 @@
 
         /* --- Score Dashboard --- */
         .dashboard {
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 35px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255,255,255,0.1);
             display: flex;
             justify-content: space-around;
@@ -155,225 +147,5 @@
         
         .total-box {
             background: linear-gradient(135deg, var(--gold), #ff8c00);
-            padding: 10px 20px;
-            border-radius: 15px;
-            color: black;
-            font-weight: 800;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-            transform: scale(1);
-            transition: 0.3s;
-        }
-        .total-val { font-size: 1.5rem; display: block; }
-
-        /* --- Result Pop Up Animation --- */
-        .result-container {
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 15px;
-        }
-
-        /* The Pop Animation */
-        .pop-in {
-            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0); opacity: 0; }
-            80% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        .win { color: var(--green); font-size: 1.1rem; }
-        .jackpot { color: var(--gold); text-shadow: 0 0 10px var(--gold); font-size: 1.3rem; font-weight: 800; }
-        
-        .meh { 
-            color: #ff6b6b; 
-            font-family: 'Courier New', monospace; 
-            font-size: 2rem; 
-            font-weight: bold; 
-            letter-spacing: -2px;
-            transform: rotate(-5deg); /* Tilted slightly for effect */
-        }
-
-        /* --- Loader --- */
-        .loader {
-            display: none;
-            width: 30px;
-            height: 30px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: var(--gold);
-            animation: spin 1s ease-in-out infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1><span class="santa-letter">E</span>nlytnd</h1>
-        <p style="color: #88a; font-size: 0.9rem;">Community Christmas Drop</p>
-
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('wa')">WhatsApp</button>
-            <button class="tab-btn" onclick="switchTab('dc')">Discord</button>
-        </div>
-
-        <div id="wa-group" class="input-group active">
-            <input type="text" id="wa-input" placeholder="WhatsApp Username">
-            <button class="check-btn" onclick="startCheck('wa')">Check what Santa has for you</button>
+            padding: 12px 25px;
             
-            <div class="result-container">
-                <div id="wa-loader" class="loader"></div>
-                <div id="wa-msg"></div>
-            </div>
-        </div>
-
-        <div id="dc-group" class="input-group">
-            <input type="text" id="dc-input" placeholder="Discord Username">
-            <button class="check-btn" style="background: linear-gradient(135deg, #5865F2, #404EED);" onclick="startCheck('dc')">Check Discord Loot</button>
-            
-            <div class="result-container">
-                <div id="dc-loader" class="loader"></div>
-                <div id="dc-msg"></div>
-            </div>
-        </div>
-
-        <div class="dashboard">
-            <div class="score-box">WhatsApp<span class="score-val" id="wa-score">0</span></div>
-            <div class="total-box">
-                TOTAL $ENLYTND
-                <span class="total-val" id="total-score">0</span>
-            </div>
-            <div class="score-box">Discord<span class="score-val" id="dc-score">0</span></div>
-        </div>
-    </div>
-
-    <script>
-        // --- Snow Effect ---
-        setInterval(() => {
-            const snow = document.createElement('div');
-            snow.className = 'snowflake';
-            snow.innerText = Math.random() > 0.5 ? '❄' : '•';
-            snow.style.left = Math.random() * 100 + 'vw';
-            snow.style.opacity = Math.random();
-            snow.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.body.appendChild(snow);
-            setTimeout(() => snow.remove(), 5000);
-        }, 100);
-
-        // --- Tab Logic ---
-        function switchTab(platform) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelectorAll('.input-group').forEach(grp => grp.classList.remove('active'));
-            document.getElementById(platform + '-group').classList.add('active');
-        }
-
-        // --- Allocation Logic & Loading ---
-        let scores = { wa: 0, dc: 0 };
-
-        function startCheck(platform) {
-            const input = document.getElementById(platform + '-input');
-            const msgDiv = document.getElementById(platform + '-msg');
-            const loader = document.getElementById(platform + '-loader');
-            const btn = document.querySelector(`#${platform}-group button`);
-            const name = input.value.trim().toUpperCase();
-
-            // 1. Validation
-            if (!name) {
-                msgDiv.innerText = "Please enter a name first!";
-                msgDiv.className = "msg meh pop-in";
-                return;
-            }
-
-            // 2. Reset UI
-            msgDiv.innerHTML = "";
-            msgDiv.className = "";
-            loader.style.display = "block"; // Show spinner
-            btn.disabled = true;            // Disable button
-            btn.style.opacity = "0.5";
-
-            // 3. Fake Loading Delay (1.5 seconds)
-            setTimeout(() => {
-                loader.style.display = "none";
-                btn.disabled = false;
-                btn.style.opacity = "1";
-                calculateResult(platform, name, msgDiv);
-            }, 1500);
-        }
-
-        function calculateResult(platform, name, msgDiv) {
-            let points = 0;
-            let message = "";
-            let style = "";
-
-            // LOGIC RULES
-            const aCount = (name.match(/A/g) || []).length;
-            
-            // JACKPOT
-            if (name.includes("ZT") || aCount >= 2) {
-                points = 5000;
-                message = "🎅 JACKPOT!<br>High Allocation!";
-                style = "jackpot";
-                triggerConfetti();
-            }
-            // ELIGIBLE
-            else if (
-                (name.includes('P') && name.includes('E')) ||
-                (name.startsWith('Z') && (name.includes('T') || name.includes('A'))) ||
-                name.includes('L') ||
-                name.includes('S')
-            ) {
-                points = 1000;
-                message = "🎁 Nice List!<br>Allocation Secure.";
-                style = "win";
-            }
-            // MEH
-            else {
-                points = 0;
-                message = "MEH";
-                style = "meh";
-            }
-
-            // Update Logic
-            scores[platform] = points;
-            
-            // Show Result with POP animation
-            msgDiv.innerHTML = message;
-            msgDiv.className = style + " pop-in"; // Add 'pop-in' class
-
-            // Update Total Score
-            updateTotal();
-        }
-
-        function updateTotal() {
-            const total = scores.wa + scores.dc;
-            const totalEl = document.getElementById('total-score');
-            const waScore = document.getElementById('wa-score');
-            const dcScore = document.getElementById('dc-score');
-
-            // Update individual scores
-            waScore.innerText = scores.wa.toLocaleString();
-            dcScore.innerText = scores.dc.toLocaleString();
-            
-            // Update total
-            totalEl.innerText = total.toLocaleString();
-            
-            // Visual pop for total box
-            const box = document.querySelector('.total-box');
-            box.style.transform = "scale(1.2)";
-            setTimeout(() => box.style.transform = "scale(1)", 200);
-        }
-
-        function triggerConfetti() {
-            // Flash effect
-            document.body.style.backgroundColor = "#222";
-            setTimeout(() => document.body.style.backgroundColor = "var(--bg)", 100);
-        }
-    </script>
-</body>
-</html>
