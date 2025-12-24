@@ -1,53 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ENLYTND Foundation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ENLYTND Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom, #f5f7fa, #e4ebf5);
+      color: #1a1a1a;
+    }
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Hero Section */
+    .hero {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: 700px;
+    }
+
+    .brand {
+      font-size: 3rem;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Santa Cap on ENLYTND */
+    .santa-cap {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 40px;
+      height: 40px;
+      background: url('https://i.imgur.com/vCqz4lY.png') no-repeat center/contain;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    .description {
+      margin: 20px 0 40px;
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Card Input */
+    .card {
+      background: #fff;
+      padding: 30px 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .card input {
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      width: 250px;
+      transition: border-color 0.3s;
+    }
+
+    .card input:focus {
+      outline: none;
+      border-color: #0072ff;
+    }
+
+    .card button {
+      padding: 12px 20px;
+      background-color: #0072ff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .card button:hover {
+      background-color: #005bcc;
+      transform: translateY(-2px);
+    }
+
+    .disclaimer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #f0f2f5;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .footer p {
+      margin: 5px 0;
+    }
+
+    /* Animations */
+    @keyframes floatSanta {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px) rotate(-5deg); }
+    }
+
+    .santa-cap {
+      animation: floatSanta 3s ease-in-out infinite;
+    }
+
+    @media (max-width: 600px) {
+      .brand {
+        font-size: 2.2rem;
+      }
+      .card input {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <main class="page">
-    <section class="hero">
-      <div class="hero-inner">
+  <main class="page">
+    <section class="hero">
+      <div class="hero-inner">
 
-        <h1 class="brand">
-          ENLYTND
-          <span class="santa-cap" aria-hidden="true"></span>
-        </h1>
+        <h1 class="brand">
+          ENLYTND
+          <span class="santa-cap" aria-hidden="true"></span>
+        </h1>
 
-        <p class="subtitle">
-          ENLYTND Foundation
-        </p>
+        <p class="subtitle">
+          ENLYTND Foundation
+        </p>
 
-        <p class="description">
-          Supporting the long-term growth, integrity, and sustainability of the ENLYTND ecosystem.
-        </p>
+        <p class="description">
+          Supporting the long-term growth, integrity, and sustainability of the ENLYTND ecosystem.
+        </p>
 
-        <div class="card">
-          <input
-            type="text"
-            placeholder="Enter wallet address"
-            aria-label="Wallet address"
-          />
-          <button>Check allocation</button>
-        </div>
+        <div class="card">
+          <input
+            type="text"
+            placeholder="Enter wallet address"
+            aria-label="Wallet address"
+          />
+          <button>Check allocation</button>
+        </div>
 
-        <p class="disclaimer">
-          This page provides a preview of the seasonal distribution process.
-          Allocation visibility does not guarantee final distribution.
-        </p>
+        <p class="disclaimer">
+          This page provides a preview of the seasonal distribution process.
+          Allocation visibility does not guarantee final distribution.
+        </p>
 
-      </div>
-    </section>
+      </div>
+    </section>
 
-    <footer class="footer">
-      <p>© 2025 ENLYTND Foundation</p>
-      <p>Governance · Transparency · Sustainability</p>
-    </footer>
-  </main>
+    <footer class="footer">
+      <p>© 2025 ENLYTND Foundation</p>
+      <p><a href="#" style="color: inherit; text-decoration: underline;">Governance</a> · <a href="#" style="color: inherit; text-decoration: underline;">Transparency</a> · <a href="#" style="color: inherit; text-decoration: underline;">Sustainability</a></p>
+    </footer>
+  </main>
 
 </body>
 </html>
