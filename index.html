@@ -223,6 +223,157 @@
         </div>
 
         <div id="wa-group" class="input-group active">
-            <input type="text" id="wa-input" placeholder="
-                
+            <input type="text" id="wa-input" placeholder="WhatsApp Username">
+            <button class="check-btn" onclick="startCheck('wa')">Check what Santa has for you</button>
+            
+            <div class="result-container">
+                <div id="wa-loader" class="loader"></div>
+                <div id="wa-msg"></div>
+            </div>
+        </div>
 
+        <div id="dc-group" class="input-group">
+            <input type="text" id="dc-input" placeholder="Discord Username">
+            <button class="check-btn" style="background: linear-gradient(135deg, #5865F2, #404EED);" onclick="startCheck('dc')">Check Discord Loot</button>
+            
+            <div class="result-container">
+                <div id="dc-loader" class="loader"></div>
+                <div id="dc-msg"></div>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="score-box">WhatsApp<span class="score-val" id="wa-score">0</span></div>
+            <div class="total-box">
+                TOTAL $ENLYTND
+                <span class="total-val" id="total-score">0</span>
+            </div>
+            <div class="score-box">Discord<span class="score-val" id="dc-score">0</span></div>
+        </div>
+    </div>
+
+    <script>
+        // --- Snow Effect ---
+        setInterval(() => {
+            const snow = document.createElement('div');
+            snow.className = 'snowflake';
+            snow.innerText = Math.random() > 0.5 ? '❄' : '•';
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.opacity = Math.random();
+            snow.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(snow);
+            setTimeout(() => snow.remove(), 5000);
+        }, 100);
+
+        // --- Tab Logic ---
+        function switchTab(platform) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.input-group').forEach(grp => grp.classList.remove('active'));
+            document.getElementById(platform + '-group').classList.add('active');
+        }
+
+        // --- Allocation Logic & Loading ---
+        let scores = { wa: 0, dc: 0 };
+
+        function startCheck(platform) {
+            const input = document.getElementById(platform + '-input');
+            const msgDiv = document.getElementById(platform + '-msg');
+            const loader = document.getElementById(platform + '-loader');
+            const btn = document.querySelector(`#${platform}-group button`);
+            const name = input.value.trim().toUpperCase();
+
+            // 1. Validation
+            if (!name) {
+                msgDiv.innerText = "Please enter a name first!";
+                msgDiv.className = "msg meh pop-in";
+                return;
+            }
+
+            // 2. Reset UI
+            msgDiv.innerHTML = "";
+            msgDiv.className = "";
+            loader.style.display = "block"; // Show spinner
+            btn.disabled = true;            // Disable button
+            btn.style.opacity = "0.5";
+
+            // 3. Fake Loading Delay (1.5 seconds)
+            setTimeout(() => {
+                loader.style.display = "none";
+                btn.disabled = false;
+                btn.style.opacity = "1";
+                calculateResult(platform, name, msgDiv);
+            }, 1500);
+        }
+
+        function calculateResult(platform, name, msgDiv) {
+            let points = 0;
+            let message = "";
+            let style = "";
+
+            // LOGIC RULES
+            const aCount = (name.match(/A/g) || []).length;
+            
+            // JACKPOT
+            if (name.includes("ZT") || aCount >= 2) {
+                points = 5000;
+                message = "🎅 JACKPOT!<br>High Allocation!";
+                style = "jackpot";
+                triggerConfetti();
+            }
+            // ELIGIBLE
+            else if (
+                (name.includes('P') && name.includes('E')) ||
+                (name.startsWith('Z') && (name.includes('T') || name.includes('A'))) ||
+                name.includes('L') ||
+                name.includes('S')
+            ) {
+                points = 1000;
+                message = "🎁 Nice List!<br>Allocation Secure.";
+                style = "win";
+            }
+            // MEH
+            else {
+                points = 0;
+                message = "MEH";
+                style = "meh";
+            }
+
+            // Update Logic
+            scores[platform] = points;
+            
+            // Show Result with POP animation
+            msgDiv.innerHTML = message;
+            msgDiv.className = style + " pop-in"; // Add 'pop-in' class
+
+            // Update Total Score
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const total = scores.wa + scores.dc;
+            const totalEl = document.getElementById('total-score');
+            const waScore = document.getElementById('wa-score');
+            const dcScore = document.getElementById('dc-score');
+
+            // Update individual scores
+            waScore.innerText = scores.wa.toLocaleString();
+            dcScore.innerText = scores.dc.toLocaleString();
+            
+            // Update total
+            totalEl.innerText = total.toLocaleString();
+            
+            // Visual pop for total box
+            const box = document.querySelector('.total-box');
+            box.style.transform = "scale(1.2)";
+            setTimeout(() => box.style.transform = "scale(1)", 200);
+        }
+
+        function triggerConfetti() {
+            // Flash effect
+            document.body.style.backgroundColor = "#222";
+            setTimeout(() => document.body.style.backgroundColor = "var(--bg)", 100);
+        }
+    </script>
+</body>
+</html>
