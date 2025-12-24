@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enlytnd Community Checker</title>
+    <title>Enlytnd Holiday Drop</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600;800&display=swap');
 
         :root {
-            /* Theme Colors */
-            --theme-green: #00D045; 
+            --green: #00D045; 
             --dark-green: #0a3d1b;
-            --hat-red: #D42426;   
+            --red: #D42426;   
             --gold: #FFD700;
-            --bg: #051a0f;           
+            --bg: #020d06;           
         }
 
         body {
             margin: 0;
             padding: 0;
             background-color: var(--bg);
-            background-image: radial-gradient(circle at 50% 50%, #0f2e1a 0%, #020d06 100%);
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             display: flex;
@@ -28,303 +26,288 @@
             align-items: center;
             height: 100vh;
             color: white;
+            /* Festive ambient lights in background */
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(212, 36, 38, 0.4) 0%, transparent 25%),
+                radial-gradient(circle at 85% 20%, rgba(255, 215, 0, 0.3) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(0, 208, 69, 0.2) 0%, #020d06 100%);
         }
 
-        /* --- Snow Animation --- */
+        /* --- Snow --- */
         .snowflake {
             position: absolute;
             top: -10px;
             color: rgba(255, 255, 255, 0.8);
             animation: fall linear forwards;
-            z-index: 1;
             pointer-events: none;
+            z-index: 1;
         }
+        @keyframes fall { to { transform: translateY(105vh); } }
 
-        @keyframes fall {
-            to { transform: translateY(105vh); }
-        }
-
-        /* --- Main Container --- */
+        /* --- Main Card --- */
         .container {
-            background: rgba(0, 40, 10, 0.4);
-            backdrop-filter: blur(12px);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 2px solid var(--theme-green);
-            box-shadow: 0 0 40px rgba(0, 208, 69, 0.2);
+            background: rgba(10, 30, 15, 0.6);
+            backdrop-filter: blur(15px);
+            padding: 2rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
             text-align: center;
             width: 90%;
-            max-width: 450px;
+            max-width: 500px;
             position: relative;
             z-index: 10;
         }
 
-        /* --- Custom Title with Hat --- */
+        /* --- Title --- */
         h1 {
             font-family: 'Mountains of Christmas', cursive;
-            font-size: 2.8rem;
-            line-height: 1.1;
-            margin: 0 0 10px 0;
-            color: var(--theme-green);
-            text-shadow: 0 0 10px var(--theme-green);
-            animation: pulse-green 3s infinite alternate;
+            font-size: 3rem;
+            margin: 0 0 5px 0;
+            color: var(--green);
+            text-shadow: 0 0 15px var(--green);
         }
-
-        /* The container for the E to hold the hat */
-        .santa-letter {
-            position: relative;
-            display: inline-block;
-        }
-
-        /* The Red Hat Body (Triangle) */
+        .santa-letter { position: relative; display: inline-block; }
         .santa-letter::before {
-            content: '';
-            position: absolute;
-            top: -25px;
-            left: -12px;
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-bottom: 35px solid var(--hat-red);
-            transform: rotate(-25deg);
-            z-index: 2;
+            content: ''; position: absolute; top: -25px; left: -12px;
+            width: 0; height: 0;
+            border-left: 15px solid transparent; border-right: 15px solid transparent;
+            border-bottom: 35px solid var(--red); transform: rotate(-25deg);
         }
-
-        /* The White Pompom (Top of Hat) */
         .santa-letter::after {
-            content: '';
-            position: absolute;
-            top: -28px;
-            left: -20px;
-            width: 12px;
-            height: 12px;
-            background: white;
-            border-radius: 50%;
-            z-index: 3;
+            content: ''; position: absolute; top: -28px; left: -20px;
+            width: 12px; height: 12px; background: white; border-radius: 50%;
             box-shadow: 0 0 5px white;
         }
 
-        /* The White Brim (Bottom of Hat) */
-        .hat-brim {
-            position: absolute;
-            top: -2px;
-            left: -12px;
-            width: 32px;
-            height: 8px;
-            background: white;
-            border-radius: 10px;
-            transform: rotate(-25deg);
-            z-index: 3;
+        /* --- Tabs --- */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
         }
-
-        @keyframes pulse-green {
-            from { text-shadow: 0 0 10px var(--theme-green); }
-            to { text-shadow: 0 0 20px var(--theme-green), 0 0 5px white; }
-        }
-
-        .subtitle {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 2rem;
-            color: #aaddbb;
-            margin-top: -10px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        /* --- Input & Button --- */
-        input {
-            width: 80%;
-            padding: 15px;
-            border-radius: 50px;
-            border: 2px solid transparent;
-            outline: none;
-            font-size: 1rem;
-            text-align: center;
-            margin-bottom: 20px;
-            background: rgba(255,255,255,0.95);
-            color: #004d1a;
-            font-weight: bold;
+        .tab-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #aaa;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
             transition: 0.3s;
         }
-        
-        input:focus {
-            border-color: var(--theme-green);
-            box-shadow: 0 0 15px rgba(0, 208, 69, 0.5);
+        .tab-btn.active {
+            background: var(--green);
+            color: #003311;
+            box-shadow: 0 0 15px rgba(0, 208, 69, 0.4);
         }
 
-        button {
-            background: linear-gradient(45deg, var(--dark-green), var(--theme-green));
+        /* --- Inputs --- */
+        .input-group { display: none; animation: fadeIn 0.5s; }
+        .input-group.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        input {
+            width: 85%;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 20px;
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        button.check-btn {
+            background: linear-gradient(135deg, var(--red), #a01010);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 15px 30px;
             border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--theme-green);
-        }
-
-        /* --- Result Styling --- */
-        #result {
-            margin-top: 25px;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            line-height: 1.5;
-        }
-
-        .high-alloc {
-            color: var(--gold);
-            font-weight: 800;
-            font-size: 1.3rem;
-            text-shadow: 0 0 10px var(--gold);
-            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .eligible {
-            color: var(--theme-green);
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px black;
-        }
-
-        .meh {
-            color: #ff6b6b;
-            font-family: 'Courier New', monospace;
-            font-size: 1.5rem;
+            font-size: 1rem;
             font-weight: bold;
-            letter-spacing: -2px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 100%;
         }
+        button.check-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--red); }
+
+        /* --- Score Dashboard --- */
+        .dashboard {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .score-box { font-size: 0.8rem; color: #aaa; }
+        .score-val { display: block; font-size: 1.2rem; color: white; font-weight: bold; }
         
-        @keyframes pop {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        .total-box {
+            background: linear-gradient(135deg, var(--gold), #ff8c00);
+            padding: 10px 20px;
+            border-radius: 15px;
+            color: black;
+            font-weight: 800;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            transform: scale(1);
+            transition: 0.3s;
         }
+        .total-val { font-size: 1.5rem; display: block; }
 
-        .footer {
-            margin-top: 20px;
-            font-size: 0.7rem;
-            opacity: 0.6;
-        }
+        /* Status Messages */
+        .msg { margin-top: 10px; font-size: 0.9rem; min-height: 20px; }
+        .win { color: var(--green); }
+        .jackpot { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
+        .meh { color: #ff6b6b; }
 
-        @media (max-width: 480px) {
-            h1 { font-size: 2.2rem; }
-            .subtitle { font-size: 1.5rem; }
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>
-            <span class="santa-letter">E<span class="hat-brim"></span></span>nlytnd
-        </h1>
-        <span class="subtitle">Community Checker</span>
-        
-        <input type="text" id="username" placeholder="Enter WhatsApp Username">
-        <button onclick="checkEligibility()">Check Status</button>
+        <h1><span class="santa-letter">E</span>nlytnd</h1>
+        <p style="color: #88a; font-size: 0.9rem;">Community Christmas Drop</p>
 
-        <div id="result"></div>
-        <div class="footer">Powered by Community</div>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('wa')">WhatsApp</button>
+            <button class="tab-btn" onclick="switchTab('dc')">Discord</button>
+        </div>
+
+        <div id="wa-group" class="input-group active">
+            <input type="text" id="wa-input" placeholder="WhatsApp Username">
+            <button class="check-btn" onclick="checkSanta('wa')">Check what Santa has for you</button>
+            <div id="wa-msg" class="msg"></div>
+        </div>
+
+        <div id="dc-group" class="input-group">
+            <input type="text" id="dc-input" placeholder="Discord Username">
+            <button class="check-btn" style="background: linear-gradient(135deg, #5865F2, #404EED);" onclick="checkSanta('dc')">Check Discord Loot</button>
+            <div id="dc-msg" class="msg"></div>
+        </div>
+
+        <div class="dashboard">
+            <div class="score-box">WhatsApp<span class="score-val" id="wa-score">0</span></div>
+            <div class="total-box">
+                TOTAL $ENLYTND
+                <span class="total-val" id="total-score">0</span>
+            </div>
+            <div class="score-box">Discord<span class="score-val" id="dc-score">0</span></div>
+        </div>
     </div>
 
     <script>
-        // --- Snowfall Logic ---
-        function createSnowflake() {
-            const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            const icons = ['❄', '•', '⋆'];
-            snowflake.textContent = icons[Math.floor(Math.random() * icons.length)];
-            snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.fontSize = Math.random() * 15 + 10 + 'px';
-            snowflake.style.opacity = Math.random() * 0.5 + 0.3;
-            snowflake.style.animationDuration = Math.random() * 5 + 3 + 's';
-            
-            document.body.appendChild(snowflake);
+        // --- Snow Effect ---
+        setInterval(() => {
+            const snow = document.createElement('div');
+            snow.className = 'snowflake';
+            snow.innerText = Math.random() > 0.5 ? '❄' : '•';
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.opacity = Math.random();
+            snow.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(snow);
+            setTimeout(() => snow.remove(), 5000);
+        }, 100);
 
-            setTimeout(() => {
-                snowflake.remove();
-            }, 8000);
+        // --- Tab Logic ---
+        function switchTab(platform) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Show inputs
+            document.querySelectorAll('.input-group').forEach(grp => grp.classList.remove('active'));
+            document.getElementById(platform + '-group').classList.add('active');
         }
-        setInterval(createSnowflake, 200);
 
         // --- Allocation Logic ---
-        function checkEligibility() {
-            const input = document.getElementById('username');
-            const resultDiv = document.getElementById('result');
-            
-            const rawName = input.value.trim();
-            const name = rawName.toUpperCase();
+        let scores = { wa: 0, dc: 0 };
 
-            resultDiv.className = '';
-            resultDiv.innerHTML = '';
+        function checkSanta(platform) {
+            const input = document.getElementById(platform + '-input');
+            const msgDiv = document.getElementById(platform + '-msg');
+            const scoreDiv = document.getElementById(platform + '-score');
+            const name = input.value.trim().toUpperCase();
 
-            if (name === "") {
-                resultDiv.style.color = "white";
-                resultDiv.innerText = "Please enter a username...";
+            if (!name) {
+                msgDiv.innerText = "Please enter a name first!";
+                msgDiv.className = "msg";
                 return;
             }
 
-            // --- 1. HIGH ALLOCATION CHECK ---
-            // High allocations go to usernames (Zt) and any other usernames with two A's
+            let points = 0;
+            let message = "";
+            let style = "meh";
+
+            // LOGIC RULES (Applied to both platforms for simplicity, or modify as needed)
             const aCount = (name.match(/A/g) || []).length;
-
+            
+            // 1. JACKPOT (5,000 Tokens) - ZT or Double A
             if (name.includes("ZT") || aCount >= 2) {
-                resultDiv.innerHTML = "🌟 JACKPOT! 🌟<br>HIGH ALLOCATION UNLOCKED";
-                resultDiv.className = "high-alloc";
-                triggerConfetti(); 
-                return;
+                points = 5000;
+                message = "🎅 JACKPOT! High Allocation!";
+                style = "jackpot";
+                triggerConfetti();
+            }
+            // 2. ELIGIBLE (1,000 Tokens) - P+E, Z+(T/A), L, S
+            else if (
+                (name.includes('P') && name.includes('E')) ||
+                (name.startsWith('Z') && (name.includes('T') || name.includes('A'))) ||
+                name.includes('L') ||
+                name.includes('S')
+            ) {
+                points = 1000;
+                message = "🎁 Nice List! Allocation Secure.";
+                style = "win";
+            }
+            // 3. MEH (0 Tokens)
+            else {
+                points = 0;
+                message = "Coal... (MEH)";
+                style = "meh";
             }
 
-            // --- 2. STANDARD ELIGIBILITY CHECK ---
+            // Update State
+            scores[platform] = points;
             
-            // Rule 1 (Updated): Usernames with P and E are eligible
-            // Does not need to start with P, just needs to contain both.
-            const pRule = name.includes('P') && name.includes('E');
+            // Update UI
+            msgDiv.innerText = message;
+            msgDiv.className = "msg " + style;
+            scoreDiv.innerText = points.toLocaleString();
+
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const total = scores.wa + scores.dc;
+            const totalEl = document.getElementById('total-score');
             
-            // Rule 2: Starts with Z -> Must contain T or A
-            const zRule = name.startsWith('Z') && (name.includes('T') || name.includes('A'));
-
-            // Rule 3: Contains L
-            const lRule = name.includes('L');
-
-            // Rule 4: Contains S
-            const sRule = name.includes('S');
-
-            if (pRule || zRule || lRule || sRule) {
-                resultDiv.innerHTML = "✅ ELIGIBLE ✅<br>Allocation Confirmed";
-                resultDiv.className = "eligible";
-                return;
-            }
-
-            // --- 3. INELIGIBLE (MEH) ---
-            resultDiv.innerText = "MEH";
-            resultDiv.className = "meh";
+            // Animate number
+            totalEl.innerText = total.toLocaleString();
+            
+            // Visual pop
+            const box = document.querySelector('.total-box');
+            box.style.transform = "scale(1.2)";
+            setTimeout(() => box.style.transform = "scale(1)", 200);
         }
 
         function triggerConfetti() {
-            const btn = document.querySelector('button');
-            const originalText = btn.innerText;
-            btn.style.backgroundColor = "var(--gold)";
-            btn.style.color = "black";
-            btn.innerText = "WOW!";
-            setTimeout(() => {
-                btn.style.background = "";
-                btn.style.color = "white";
-                btn.innerText = originalText;
-            }, 1000);
+            // Simple flash effect
+            document.body.style.backgroundColor = "#222";
+            setTimeout(() => document.body.style.backgroundColor = "var(--bg)", 100);
         }
     </script>
 </body>
 </html>
+
