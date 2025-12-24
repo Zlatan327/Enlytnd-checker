@@ -1,134 +1,79 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ENLYTND · Holiday Distribution</title>
 
-export default function EnlytndChristmasChecker() {
-  const [username, setUsername] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
-
-  const randomBetween = (min: number, max: number) =>
-    Math.floor(Math.random() * (max - min + 1)) + min;
-
-  const checkEligibility = () => {
-    setLoading(true);
-    setResult(null);
-
-    setTimeout(() => {
-      const u = username.toUpperCase();
-      let allocation: string | null = null;
-
-      if (u.startsWith("PEN") || u.startsWith("ZT")) {
-        allocation = `${randomBetween(9000, 12000)} <img src="/enlytnd-logo.svg" alt="ENLYTND" className="h-10 mx-auto" /> ($${randomBetween(90, 120)}) · MEGA`;
-      } else if (u.startsWith("Z") || u.startsWith("P")) {
-        allocation = `${randomBetween(4000, 7000)} ENLYTND ($${randomBetween(40, 70)})`;
-      } else if (u.startsWith("A") || u.startsWith("E")) {
-        allocation = `${randomBetween(2000, 3500)} ENLYTND ($${randomBetween(20, 35)})`;
-      } else if (u.startsWith("H") || u.startsWith("O")) {
-        allocation = `${randomBetween(600, 1200)} ENLYTND ($${randomBetween(6, 12)})`;
-      } else {
-        allocation = "MEH";
-      }
-
-      setResult(allocation);
-      setLoading(false);
-    }, 1600);
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-green-950 via-green-900 to-black text-white flex flex-col items-center px-6">
-      {/* Snow */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(35)].map((_, i) => (
-          <motion.span
-            key={i}
-            className="absolute w-1.5 h-1.5 bg-white/80 rounded-full"
-            initial={{ y: -10, x: Math.random() * 390 }}
-            animate={{ y: 900 }}
-            transition={{ duration: randomBetween(8, 14), repeat: Infinity }}
-          />
-        ))}
-      </div>
-
-      {/* Header */}
-      <div className="mt-14 mb-10 text-center z-10 flex flex-col items-center">
-        <div className="relative">
-          <img src="/enlytnd-logo.svg" alt="ENLYTND" className="h-10" />
-          {/* Santa Cap */}
-          <svg
-            width="36"
-            height="26"
-            viewBox="0 0 36 26"
-            className="absolute -top-3 -right-5"
-          >
-            <path
-              d="M2 18 C6 2, 30 2, 34 16"
-              fill="#b91c1c"
-            />
-            <rect x="4" y="16" width="26" height="6" rx="3" fill="#f5f5f5" />
-            <circle cx="32" cy="18" r="4" fill="#f5f5f5" />
-          </svg>
-        </div>
-        <p className="text-xs uppercase tracking-widest opacity-50 mt-3">
-          Holiday Distribution Preview
-        </p>
-      </div>
-
-      {/* Santa drive-by */}
-      <motion.div
-        className="mb-8 text-xl opacity-80"
-        animate={{ x: ["-120%", "120%"] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-      >
-        🎅🏼🚗
-      </motion.div>
-
-      {/* Card */}
-      <Card className="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl z-10">
-        <CardContent className="p-8 space-y-5">
-          <Input
-            placeholder="Check if you got something from Santa"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="bg-black/40 border-white/10 text-white placeholder:text-white/50"
-          />
-
-          <Button
-            onClick={checkEligibility}
-            disabled={!username || loading}
-            className="w-full bg-green-700 hover:bg-green-600 rounded-xl"
-          >
-            {loading ? "Checking eligibility…" : "Check allocation"}
-          </Button>
-
-          {loading && (
-            <motion.div
-              className="flex justify-center text-lg"
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 1 }}
-            >
-              ❄️
-            </motion.div>
-          )}
-
-          {result && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center text-lg font-medium"
-            >
-              {result}
-            </motion.div>
-          )}
-        </CardContent>
-      </Card>
-
-      <p className="mt-10 text-xs opacity-40 text-center max-w-xs">
-        Allocations are randomized within tiers. This page is for holiday distribution preview only.
-      </p>
-    </div>
-  );
+<style>
+:root {
+  --green: #14532d;
+  --dark: #020617;
+  --glass: rgba(255,255,255,0.06);
 }
-      
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #052e16, #020617);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* Snow */
+.snow {
+  position: fixed;
+  top: -10px;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,255,255,.7);
+  border-radius: 50%;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+/* Header */
+header {
+  margin-top: 60px;
+  text-align: center;
+  position: relative;
+}
+
+.logo-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.logo-wrap img {
+  height: 40px;
+}
+
+/* Santa cap */
+.cap {
+  position: absolute;
+  top: -12px;
+  right: -26px;
+}
+
+/* Card */
+.card {
+  margin-top: 40px;
+  width: 90%;
+  max-width: 420px;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding:
+    
