@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enlytnd Community Checker</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600&display=swap');
+
+        :root {
+            /* Theme Colors */
+            --theme-green: #00D045; 
+            --dark-green: #0a3d1b;
+            --hat-red: #D42426;   
+            --gold: #FFD700;
+            --bg: #051a0f;           
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, #0f2e1a 0%, #020d06 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        /* --- Snow Animation --- */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: rgba(255, 255, 255, 0.8);
+            animation: fall linear forwards;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh); }
+        }
+
+        /* --- Main Container --- */
+        .container {
+            background: rgba(0, 40, 10, 0.4);
+            backdrop-filter: blur(12px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid var(--theme-green);
+            box-shadow: 0 0 40px rgba(0, 208, 69, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Custom Title with Hat --- */
+        h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.8rem;
+            line-height: 1.1;
+            margin: 0 0 10px 0;
+            color: var(--theme-green);
+            text-shadow: 0 0 10px var(--theme-green);
+            animation: pulse-green 3s infinite alternate;
+        }
+
+        /* The container for the E to hold the hat */
+        .santa-letter {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* The Red Hat Body (Triangle) */
+        .santa-letter::before {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: -12px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 35px solid var(--hat-red);
+            transform: rotate(-25deg);
+            z-index: 2;
+        }
+
+        /* The White Pompom (Top of Hat) */
+        .santa-letter::after {
+            content: '';
+            position: absolute;
+            top: -28px;
+            left: -20px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            z-index: 3;
+            box-shadow: 0 0 5px white;
+        }
+
+        /* The White Brim (Bottom of Hat) */
+        .hat-brim {
+            position: absolute;
+            top: -2px;
+            left: -12px;
+            width: 32px;
+            height: 8px;
+            background: white;
+            border-radius: 10px;
+            transform: rotate(-25deg);
+            z-index: 3;
+        }
+
+        @keyframes pulse-green {
+            from { text-shadow: 0 0 10px var(--theme-green); }
+            to { text-shadow: 0 0 20px var(--theme-green), 0 0 5px white; }
+        }
+
+        .subtitle {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2rem;
+            color: #aaddbb;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* --- Input & Button --- */
+        input {
+            width: 80%;
+            padding: 15px;
+            border-radius: 50px;
+            border: 2px solid transparent;
+            outline: none;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.95);
+            color: #004d1a;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        input:focus {
+            border-color: var(--theme-green);
+            box-shadow: 0 0 15px rgba(0, 208, 69, 0.5);
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--dark-green), var(--theme-green));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--theme-green);
+        }
+
+        /* --- Result Styling --- */
+        #result {
+            margin-top: 25px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        .high-alloc {
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px var(--gold);
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .eligible {
+            color: var(--theme-green);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px black;
+        }
+
+        .meh {
+            color: #ff6b6b;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: -2px;
+        }
+        
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>
+            <span class="santa-letter">E<span class="hat-brim"></span></span>nlytnd
+        </h1>
+        <span class="subtitle">Community Checker</span>
+        
+        <input type="text" id="username" placeholder="Enter WhatsApp Username">
+        <button onclick="checkEligibility()">Check Status</button>
+
+        <div id="result"></div>
+        <div class="footer">Powered by Community</div>
+    </div>
+
+    <script>
+        // --- Snowfall Logic ---
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            const icons = ['❄', '•', '⋆'];
+            snowflake.textContent = icons[Math.floor(Math.random() * icons.length)];
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.fontSize = Math.random() * 15 + 10 + 'px';
+            snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+            snowflake.style.animationDuration = Math.random() * 5 + 3 + 's';
+            
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 8000);
+        }
+        setInterval(createSnowflake, 200);
+
+        // --- Allocation Logic ---
+        function checkEligibility() {
+            const input = document.getElementById('username');
+            const resultDiv = document.getElementById('result');
+            
+            const rawName = input.value.trim();
+            const name = rawName.toUpperCase();
+
+            resultDiv.className = '';
+            resultDiv.innerHTML = '';
+
+            if (name === "") {
+                resultDiv.style.color = "white";
+                resultDiv.innerText = "Please enter a username...";
+                return;
+            }
+
+            // --- 1. HIGH ALLOCATION CHECK ---
+            // High allocations go to usernames (Zt) and any other usernames with two A's
+            const aCount = (name.match(/A/g) || []).length;
+
+            if (name.includes("ZT") || aCount >= 2) {
+                resultDiv.innerHTML = "🌟 JACKPOT! 🌟<br>HIGH ALLOCATION UNLOCKED";
+                resultDiv.className = "high-alloc";
+                triggerConfetti(); 
+                return;
+            }
+
+            // --- 2. STANDARD ELIGIBILITY CHECK ---
+            
+            // Rule 1 (Updated): Usernames with P and E are eligible
+            // Does not need to start with P, just needs to contain both.
+            const pRule = name.includes('P') && name.includes('E');
+            
+            // Rule 2: Starts with Z -> Must contain T or A
+            const zRule = name.startsWith('Z') && (name.includes('T') || name.includes('A'));
+
+            // Rule 3: Contains L
+            const lRule = name.includes('L');
+
+            // Rule 4: Contains S
+            const sRule = name.includes('S');
+
+            if (pRule || zRule || lRule || sRule) {
+                resultDiv.innerHTML = "✅ ELIGIBLE ✅<br>Allocation Confirmed";
+                resultDiv.className = "eligible";
+                return;
+            }
+
+            // --- 3. INELIGIBLE (MEH) ---
+            resultDiv.innerText = "MEH";
+            resultDiv.className = "meh";
+        }
+
+        function triggerConfetti() {
+            const btn = document.querySelector('button');
+            const originalText = btn.innerText;
+            btn.style.backgroundColor = "var(--gold)";
+            btn.style.color = "black";
+            btn.innerText = "WOW!";
+            setTimeout(() => {
+                btn.style.background = "";
+                btn.style.color = "white";
+                btn.innerText = originalText;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
